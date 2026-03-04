@@ -91,27 +91,26 @@
         document.getElementById('calcFare').addEventListener('click', function() {
             let pickup = parseFloat(document.getElementById("pickup").value);
             let dropoff = parseFloat(document.getElementById("dropoff").value);
-            let basefare = 50;     // Initial cost
-            let perKMrate = 15;    // Cost per kilometer after the base distance
-            let baseKM = 2;        // Distance in the base fare
-            let discount = document.getElementById("disc").checked ? 1 : 0:
-            // Calculate distance between stations
+            let basefare = 50;    
+            let perKMrate = 15;    
+            let baseKM = 2;        
+            let discount = document.getElementById("disc").checked ? 1 : 0;
             let distance = Math.max(Math.abs(dropoff - pickup), 0);
             let extraM = Math.max(distance - baseKM, 0);
 
             
             let fare = basefare + (extraM * perKMrate);
             
-            // Apply 20% discount if the checkbox was checked
+            
             fare = fare * (1 - 0.2 * discount);
 
-            /*
-          /*Display the final result formatted to 2 decimal places with the Peso sign */
+            
             document.getElementById("DisplayAns").innerHTML = "₱" + fare.toFixed(2);
         });
     </script>
 </body>
 </html>
+
 
 
 
