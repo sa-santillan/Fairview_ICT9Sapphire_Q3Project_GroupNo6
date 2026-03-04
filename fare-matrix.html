@@ -3,15 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pickup Station Registration</title>
+    <title>WaLala Move On - Fare Matrix</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-image: url('night road.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .box {
+            background: rgba(33, 37, 41, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-primary-custom {
+            background-color: #0d6efd;
+            border: none;
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: #0b5ed7;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.4);
+        }
+
+        .form-select, .form-check-input {
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .form-select option {
+            background-color: #212529;
+            color: white;
+        }
+
+        #DisplayAns {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0d6efd;
+            text-shadow: 0 0 15px rgba(13, 110, 253, 0.3);
+        }
+    </style>
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="index.html">
-            <img src="logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
-            SwiftRide
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <img src="walalamoveon.jpg" alt="Logo" width="50" height="50">
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -20,102 +75,105 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="fare-matrix.html">Fare Matrix</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Schedule.html">Schedule</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Help.html">Help</a>
-                </li>
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link active" href="fare-matrix.html">Fare Matrix</a></li>
+                <li class="nav-item"><a class="nav-link" href="Schedule.html">Schedule</a></li>
+                <li class="nav-item"><a class="nav-link" href="Help.html">Help</a></li>
             </ul>
             
             <div class="d-flex">
-                <a href="register.html" class="btn btn-outline-primary text-white">Create Account</a>
+                <a href="confirmation.html" class="btn btn-primary-custom text-white">Create Account</a>
             </div>
         </div>
     </div>
 </nav>
 
-<div class="container bg-dark text-light p-4 mt-5 rounded w-75">
-    <details>
-        <summary>Instructions:</summary>
-        <p id="Instruct" class="text-center"></p>
-    </details>
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="box text-white p-5 rounded-4 shadow-lg">
+                <h2 class="text-center mb-4 fw-bold text-uppercase tracking-tight">Fare Calculator</h2>
+                
+                <details class="mb-4">
+                    <summary class="text-info" style="cursor: pointer;">Quick Instructions</summary>
+                    <p id="Instruct" class="mt-2 opacity-75 small"></p>
+                </details>
 
-    <div class="row mt-4">
-        <div class="col-lg text-center mb-4">
-            <br><br>
-            <label>Select Pickup Station:</label>
-            <select class="form-select mb-3" id="pickup" required autocomplete="off">
-                <option selected disabled>Select your pickup station</option>
-                <option value="0">Quezon Avenue</option>
-                <option value="1">Cubao</option>
-                <option value="2">Ortigas</option>
-                <option value="3">Makati</option>
-                <option value="4">Buendia</option>
-                <option value="5">Magallanes</option>
-                <option value="6">Taft Avenue</option>
-            </select>
+                <div class="mb-4">
+                    <label class="form-label fw-bold">From:</label>
+                    <select class="form-select form-select-lg" id="pickup" required>
+                        <option selected disabled>Select pickup station</option>
+                        <option value="0">Quezon Avenue</option>
+                        <option value="1">Cubao</option>
+                        <option value="2">Ortigas</option>
+                        <option value="3">Makati</option>
+                        <option value="4">Buendia</option>
+                        <option value="5">Magallanes</option>
+                        <option value="6">Taft Avenue</option>
+                    </select>
+                </div>
 
-            <label>Select Drop off Station:</label>
-            <select class="form-select mb-3" id="dropoff" required autocomplete="off">
-                <option selected disabled>Select your dropoff station</option>
-                <option value="0">Quezon Avenue</option>
-                <option value="1">Cubao</option>
-                <option value="2">Ortigas</option>
-                <option value="3">Makati</option>
-                <option value="4">Buendia</option>
-                <option value="5">Magallanes</option>
-                <option value="6">Taft Avenue</option>
-            </select>
+                <div class="mb-4">
+                    <label class="form-label fw-bold">To:</label>
+                    <select class="form-select form-select-lg" id="dropoff" required>
+                        <option selected disabled>Select dropoff station</option>
+                        <option value="0">Quezon Avenue</option>
+                        <option value="1">Cubao</option>
+                        <option value="2">Ortigas</option>
+                        <option value="3">Makati</option>
+                        <option value="4">Buendia</option>
+                        <option value="5">Magallanes</option>
+                        <option value="6">Taft Avenue</option>
+                    </select>
+                </div>
 
-            <div class="form-check mb-3">
-                <input type="checkbox" class="form-check-input" id="disc">
-                <label class="form-check-label" for="disc">Apply 20% discount</label>
+                <div class="form-check mb-4">
+                    <input type="checkbox" class="form-check-input" id="disc">
+                    <label class="form-check-label" for="disc">Apply Student/Senior Discount (20%)</label>
+                </div>
+
+                <div class="text-center">
+                    <button id="calcFare" class="btn btn-primary-custom btn-lg w-100 mb-4">Calculate Fare</button>
+                    <div class="py-3 border-top border-secondary">
+                        <span class="text-uppercase opacity-50 small tracking-widest">Total Fare</span>
+                        <p id="DisplayAns" class="mb-0">₱0.00</p>
+                    </div>
+                </div>
             </div>
-
-            <button id="calcFare" class="btn btn-primary">Calculate Fare</button>
-            <p id="DisplayAns" class="mt-3">₱0.00</p>
         </div>
     </div>
 </div>
 
 <script>
-document.getElementById('Instruct').innerHTML = "Please use this website as a fare guide for your future trips!";
+    document.getElementById('Instruct').innerHTML = "Select your start and end points to see the estimated cost. Discounts apply to valid Student, Senior, or PWD IDs.";
 
-document.getElementById('calcFare').addEventListener('click', function() {
-    let pickupVal = document.getElementById("pickup").value;
-    let dropoffVal = document.getElementById("dropoff").value;
+    document.getElementById('calcFare').addEventListener('click', function() {
+        let pickupVal = document.getElementById("pickup").value;
+        let dropoffVal = document.getElementById("dropoff").value;
 
-    if (!pickupVal || !dropoffVal) {
-        alert("Please select both pickup and dropoff stations!");
-        return;
-    }
+        if (!pickupVal || !dropoffVal) {
+            alert("Please select both stations!");
+            return;
+        }
 
-    let pickup = parseFloat(pickupVal);
-    let dropoff = parseFloat(dropoffVal);
+        let pickup = parseFloat(pickupVal);
+        let dropoff = parseFloat(dropoffVal);
 
-    let basefare = 50;    
-    let perKMrate = 15;    
-    let baseKM = 2;        
-    let discount = document.getElementById("disc").checked ? 1 : 0;
+        let basefare = 50;    
+        let perKMrate = 15;    
+        let baseKM = 2;        
+        let discount = document.getElementById("disc").checked ? 1 : 0;
 
-    let distance = Math.max(Math.abs(dropoff - pickup), 0);
-    let extraM = Math.max(distance - baseKM, 0);
+        let distance = Math.abs(dropoff - pickup);
+        let extraM = Math.max(distance - baseKM, 0);
 
-    let fare = basefare + (extraM * perKMrate);
-    fare = fare * (1 - 0.2 * discount);
+        let fare = basefare + (extraM * perKMrate);
+        fare = fare * (1 - 0.2 * discount);
 
-    document.getElementById("DisplayAns").innerHTML = "₱" + fare.toFixed(2);
-});
+        document.getElementById("DisplayAns").innerHTML = "₱" + fare.toFixed(2);
+    });
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
