@@ -145,14 +145,25 @@
 </div>
 
 <script>
-    document.getElementById('Instruct').innerHTML = "Select your start and end points to see the estimated cost. Discounts apply to valid Student, Senior, or PWD IDs.";
+    // 1. Instructions
+    const instructEl = document.getElementById('Instruct');
+    if(instructEl) {
+        instructEl.innerHTML = "Select your start and end points to see the estimated cost. Discounts apply to valid Student, Senior, or PWD IDs.";
+    }
 
     document.getElementById('calcFare').addEventListener('click', function() {
         let pickupVal = document.getElementById("pickup").value;
         let dropoffVal = document.getElementById("dropoff").value;
 
-        if (!pickupVal || !dropoffVal) {
+        // 2. Check if both are selected    
+        if (pickupVal === "" || dropoffVal === "" || pickupVal === "Select pickup station") {
             alert("Please select both stations!");
+            return;
+        }
+
+        // 3. Prevent same station travel
+        if (pickupVal === dropoffVal) {
+            alert("Please select different stations for pickup and dropoff.");
             return;
         }
 
@@ -162,20 +173,24 @@
         let basefare = 50;    
         let perKMrate = 15;    
         let baseKM = 2;        
-        let discount = document.getElementById("disc").checked ? 1 : 0;
+        let isDiscounted = document.getElementById("disc").checked;
 
         let distance = Math.abs(dropoff - pickup);
         let extraM = Math.max(distance - baseKM, 0);
 
-        let fare = basefare + (extraM * perKMrate);
-        fare = fare * (1 - 0.2 * discount);
+        let totalFare = basefare + (extraM * perKMrate);
+        
+        if (isDiscounted) {
+            totalFare = totalFare * 0.8; // Apply 20% discount
+        }
 
-        document.getElementById("DisplayAns").innerHTML = "₱" + fare.toFixed(2);
+        document.getElementById("DisplayAns").innerHTML = "₱" + totalFare.toFixed(2);
     });
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 
 
